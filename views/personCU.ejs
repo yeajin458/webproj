@@ -1,0 +1,79 @@
+<div class="container">
+  <% if (cu === 'c') { %>
+    <h2><%= cls === 'MNG' ? '관리자기능: 회원 생성' : '회원가입' %></h2>
+  <% } else if (cu === 'u') { %>
+    <h2>관리자 기능: 회원 정보 수정</h2>
+  <% } %>
+
+  <form action="<%= 
+    (cu === 'c' && cls === 'NON') ? '/auth/register_process' : 
+    (cu === 'c' && cls === 'MNG') ? '/person/create_process' :
+    (cu === 'u') ? '/person/update_process' : ''%>" method="POST">
+
+    <% if (cu === 'c') { %>
+      <div class="mb-3">
+        <label class="form-label" for="id">ID</label>
+        <input class="form-control" type="text" name="loginid" placeholder="아이디를 입력해 주세요" style="width:300px;" />
+      </div>
+    <% } else if (cu === 'u') { %>
+      <div class="mb-3" hidden>
+        <label class="form-label" for="id">ID</label>
+        <input class="form-control" type="text" name="loginid" value="<%= person.loginid %>" style="width:300px;" />
+      </div>
+    <% } %>
+
+    <div class="mb-3">
+      <label class="form-label" for="password">PW</label>
+      <input class="form-control" type="text" name="password" placeholder="패스워드를 입력해 주세요" value="<%= cu === 'u' ? person.password : '' %>" style="width:300px;" />
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label" for="name">이름</label>
+      <input class="form-control" type="text" name="name" placeholder="이름을 입력해 주세요" value="<%= cu === 'u' ? person.name : '' %>" style="width:300px;" />
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">성별</label>&nbsp;&nbsp;&nbsp;
+      <% let m = '', f = ''; %>
+      <% if (cu === 'u' && person.mf === 'm') m = 'checked'; %>
+      <% if (cu === 'u' && person.mf === 'f') f = 'checked'; %>
+      <input type="radio" name="mf" value="m" <%= m %> /> 남자&nbsp;&nbsp;&nbsp;
+      <input type="radio" name="mf" value="f" <%= f %> /> 여자
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label" for="address">주소</label>
+      <input class="form-control" type="text" name="address" placeholder="주소를 입력해 주세요" value="<%= cu === 'u' ? person.address : '' %>" style="width:300px;" />
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label" for="tel">전화번호</label>
+      <input class="form-control" type="text" name="tel" placeholder="000-0000-0000" value="<%= cu === 'u' ? person.tel : '' %>" style="width:300px;" />
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label" for="birth">생일</label>
+      <input class="form-control" type="text" name="birth" placeholder="YYYYMMDD" value="<%= cu === 'u' ? person.birth : '' %>" style="width:300px;" />
+    </div>
+
+    <% if (cls === 'MNG') { %>
+      <div class="mb-3">
+        <label class="form-label" for="cls">CLASS</label>
+        <select name="cls" id="cls" class="form-select" style="width:300px;">
+          <option value="CEO" <%= cu === 'u' && person.class === 'CEO' ? 'selected' : '' %>>경영자</option>
+          <option value="MNG" <%= cu === 'u' && person.class === 'MNG' ? 'selected' : '' %>>관리자</option>
+          <option value="CST" <%= cu === 'u' && person.class === 'CST' ? 'selected' : '' %>>고객</option>
+        </select>
+      </div>
+    <% } %>
+
+    <button class="btn btn-outline-primary btn-sm" type="submit">
+      <%= cu === 'c' ? '입력' : '수정' %>
+    </button>
+
+    <% if (cls === 'MNG') { %>
+      <a href="/person/view" class="btn btn-outline-secondary btn-sm">고객 목록 돌아가기</a>
+    <% } %>
+
+  </form>
+</div>

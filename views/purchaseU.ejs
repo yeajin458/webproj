@@ -1,0 +1,109 @@
+<h2>구매 내역 수정</h2>
+<div class="container">	
+  <form action="/purchase/purchaseupdate_process" method="post">
+
+    <!-- 고객 선택 -->
+    <div class="mb-3" style="display: flex; align-items: center; gap: 10px;">
+      <label class="form-label" for="customer">고객</label>
+      <select name="customer" id="customer" class="form-select" style="width:300px;">
+        <% list.forEach(person => { %>
+          <option value="<%= person.loginid %>" 
+            <%= (board.length > 0 && person.loginid === board[0].loginid) ? 'selected' : '' %>><%= person.name %>
+          </option>
+        <% }) %>
+      </select>
+    </div>
+
+    <!-- 상품 선택 -->
+    <div class="mb-3">
+      <label class="form-label" for="product">상품</label>
+      <select name="product" id="product" class="form-select" style="width:300px;">
+        <% lists.forEach(product => { %>
+          <option value="<%= product.prod_id %>" 
+            <%= (board.length > 0 && product.prod_id === board[0].prod_id) ? 'selected' : '' %>><%= product.name %>
+          </option>
+        <% }) %>
+      </select>
+    </div>
+
+   <div class="row mb-3">
+    
+  <!-- 날짜 -->
+  <div class="col"style="width:300px;">
+    <label class="form-label" for="date">날짜</label> 
+    <input class="form-control" type="text" id="date" 
+      value="<%= (board.length > 0) ? board[0].date : '' %>" 
+      disabled />
+  </div>
+
+  <!-- 가격 -->
+  <div class="col">
+    <label class="form-label">가격</label> 
+    <input class="form-control" type="text" 
+      value="<%= (board.length > 0) ? board[0].price : '' %>" 
+     />
+  </div>
+</div>
+
+<div class="row mb-3">
+  <!-- 포인트 -->
+  <div class="col">
+    <label class="form-label" for="point">포인트</label> 
+    <input class="form-control" type="number" id="point" name="point" 
+      value="<%= (board.length > 0) ? board[0].point : '' %>" />
+  </div>
+
+  <!-- 수량 -->
+  <div class="col">
+    <label class="form-label" for="qty">수량</label> 
+    <input class="form-control" type="number" id="qty" name="qty" 
+      value="<%= (board.length > 0) ? board[0].qty : '' %>" />
+  </div>
+
+    <!-- 총액 -->
+    <div class="mb-3">
+      <label class="form-label" for="total">총액</label> 
+      <input class="form-control" type="text" id="total" name="total" 
+        value="<%= (board.length > 0) ? board[0].total : '' %>" 
+        style="width:300px;" />
+    </div>
+
+    <!-- 지불여부 -->
+    <div class="mb-3" style="display: flex; align-items: center; gap: 10px;">
+    <label class="form-label" for="paid">지불여부</label> 
+     <select name="payYN" class="form-select" style="width:120px; font-size:14px;">
+     <option value="Y" <%= board[0].payYN === 'Y' ? 'selected' : '' %>>YES</option>
+     <option value="N" <%= board[0].payYN === 'N' ? 'selected' : '' %>>NO</option>
+    </select>
+    </div>
+
+    <!-- 취소여부 -->
+    <div class="mb-3" style="display: flex; align-items: center; gap: 10px;">
+      <label class="form-label" for="cancelled">취소여부</label> 
+      <select class="form-select" id="cancelled" name="cancel" style="width:120px; font-size:14px;" >
+        <option value="Y" <%= board[0].cancel === 'Y' ? 'selected' : '' %>>YES</option>
+        <option value="N" <%= board[0].cacnel === 'N' ? 'selected' : '' %>>NO</option>
+      </select>
+    </div>
+
+    <!-- 환불여부 -->
+    <div class="mb-3" style="display: flex; align-items: center; gap: 10px;">
+      <label class="form-label" for="refunded">환불여부</label> 
+      <select class="form-select" id="refunded" name="refund" style="width:120px; font-size:14px;">
+        <option value="Y" <%= board[0].refund === 'Y' ? 'selected' : '' %>>YES</option>
+        <option value="N" <%= board[0].refund === 'N' ? 'selected' : '' %>>NO</option>
+      </select>
+    </div>
+
+    <!-- 숨은 필드 (ID들) -->
+  <input type="hidden" name="purchase_id" value="<%= board[0].purchase_id %>">
+
+  <div style="margin-top: 15px; display: flex; gap: 10px; justify-content: flex-start;">
+<button class="btn btn-outline-primary btn-sm" type="submit" >수정 </button>
+<a href="/purchase" class="btn btn-outline-secondary btn-sm" >구매 목록 돌아가기</a>
+  </div>
+
+
+</form>
+
+</div>

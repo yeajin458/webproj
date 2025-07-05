@@ -1,0 +1,21 @@
+<table class="table table-bordered border-primary">
+   
+        <td>테이블 명</td>
+        <td>테이블 설명</td>
+    </tr>
+  
+
+    <% for (var i = 0; i < list.length; i++) { %>
+      <tr>
+       <td><a href="/table/view/<%=list[i].TABLE_NAME%>"><%=list[i].TABLE_NAME%></a></td>
+       <td><%=list[i].TABLE_COMMENT%></td>
+      
+       
+      </tr>
+    <% } %>
+
+  </table>
+  <% if (list.length === 0) { %>
+  <p>자료가 없으니  추가해 주십시오.</p>
+<% } %>
+

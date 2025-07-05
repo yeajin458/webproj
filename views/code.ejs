@@ -1,0 +1,45 @@
+<table class="table table-bordered border-primary table-hover" style="text-align: center;">
+    <thead class="table-primary">
+        <tr>
+            <th>대분류</th>
+            <th>대분류명</th>
+            <th>소분류</th>
+            <th>소분류명</th>
+            <th>시작일</th>
+            <th>종료일</th>
+            <th colspan="2"></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <%{
+        var i = 0;
+        while (i < list.length) { %>
+        <tr>
+            <td><%= list[i].main_id %></td>
+            <td><%= list[i].main_name %></td>
+            <td><%= list[i].sub_id %></td>
+            <td><%= list[i].sub_name %></td>
+            <td><%= list[i].start %></td>
+            <td><%= list[i].end %></td>
+            <td>
+                <a href="/code/update/<%= list[i].main_id %>/<%= list[i].sub_id %>/<%= list[i].start %>/<%= list[i].end %>" style="text-decoration: none;">수정</a>
+            </td>
+            <td>
+                <a href="/code/delete/<%= list[i].main_id %>/<%= list[i].sub_id %>/<%= list[i].start %>/<%= list[i].end %>" style="text-decoration: none;" onclick="if(confirm('정말로 삭제하시겠습니까?')==false) return false">삭제</a>
+            </td>
+        </tr>
+     <% i++; } 
+    } %>
+    </tbody>
+</table>
+
+
+<% if (list.length === 0) { %>
+<p>자료가 없으니 코드 추가 버튼으로 코드를 추가해 주십시오.</p>
+<% } %>
+
+
+<a href="/code/create">
+    <button class="btn btn-outline-secondary btn-sm" type="submit">코드 추가</button>
+</a>

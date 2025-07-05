@@ -1,0 +1,88 @@
+<div class="container">	
+	<form action="/product/create_process" method="POST"  enctype="multipart/form-data">
+		<div class="mb-3">
+			<h2>상품 입력</h2>
+			<input type="hidden" id="main_id" name="main_id" />
+			<input type="hidden" id="sub_id" name="sub_id" />
+			<div class="d-flex align-items-center mb-2">
+				<label class="me-2">카테고리</label>
+				<select name="category" id ="category" onchange="setCategoryValues()"  style="width: 150px;">
+				<% 
+				let tag = '';
+				for (let i = 0; i < list2.length; i++) {
+    			const selected = (list2[i].main_id === code.main_id && list2[i].sub_id === code.sub_id) ? 'selected' : '';
+    			tag += `<option value="${list2[i].main_id}:${list2[i].sub_id}" ${selected}>${list2[i].main_name}:${list2[i].sub_name}</option>`;
+				}
+				%>
+				<%- tag %>
+				</select>
+			</div>
+
+		
+			<div class="mb-3"></div>
+
+			<div class="row">
+				<div class="col-md-6">
+					<label class="form-label" for="name">제품명</label> 
+					<input class="form-control" type="text" name="name" style="width: 300px;" />
+				</div>
+				<div class="col-md-6">
+					<label class="form-label" for="price">가격</label> 
+					<input class="form-control" type="text" name="price" style="width: 300px;" />
+				</div>
+			</div>
+			<div class="row mt-3">
+				<div class="col-md-6">
+					<label class="form-label" for="stock">재고</label> 
+					<input class="form-control" type="text" name="stock" style="width: 300px;" />
+				</div>
+				<div class="col-md-6">
+					<label class="form-label" for="brand">브랜드</label> 
+					<input class="form-control" type="text" name="brand" style="width: 300px;" />
+				</div>
+			</div>
+			<div class="row mt-3">
+				<div class="col-md-6">
+					<label class="form-label" for="supplier">공급자</label> 
+					<input class="form-control" type="text" name="supplier" style="width: 300px;" />
+				</div>
+			</div>
+		</div>
+
+		
+		
+        <div class="filebox">
+            <input class="upload-name" value="" placeholder="이미지파일">
+            <input type="file" id="file" name="uploadFile" onchange="displayFileName()">
+        </div>
+    	
+		<br>
+		
+		<button class="btn btn-outline-primary btn-sm" type="submit">입력</button>
+		<a href="/product/view">
+			<button class="btn btn-outline-primary btn-sm" type="button">제품 목록 돌아가기</button>
+		</a>
+	</form>
+</div>
+
+<script>
+        function displayFileName(){
+           // alert("here")
+            var fileName = $("#file").val();
+            alert(fileName);
+            $(".upload-name").val(fileName);
+        }
+</script>
+<script>
+    function setCategoryValues() {
+        const selected = document.getElementById("category").value; // 예: "1:101"
+        const [main_id, sub_id] = selected.split(":");
+        document.getElementById("main_id").value = main_id;
+        document.getElementById("sub_id").value = sub_id;
+    }
+
+    // 페이지 로딩 시에도 초기화
+    window.onload = setCategoryValues;
+</script>
+    
+      

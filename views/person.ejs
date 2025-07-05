@@ -1,0 +1,58 @@
+<table class="table table-bordered border-primary table-hover" style="text-align: center;">
+    <thead class="table-primary">
+        <tr>
+            <th>ID</th>
+            <th>PW</th>
+            <th>이름</th>
+            <th>성별</th>
+            <th>주소</th>
+            <th>전화번호</th> 
+            <th>생년월일</th>
+            <th>클래스</th>
+            <th colspan="2">메뉴</th>
+        </tr>
+    </thead>
+
+    <%{
+        var i = 0;
+        while (i < list.length) { %>
+            <tr>
+                <td><%= list[i].loginid %></td>
+                <td><%= list[i].password %></td>
+                <td><%= list[i].name %></td>
+                <% if (list[i].mf == "m") { %>
+                    <td>남자</td>
+                <% } else if (list[i].mf == "f") { %>
+                    <td>여자</td>
+                <% } else { %>
+                    <td>기타</td> 
+                <% } %>
+                <td><%= list[i].address %></td>
+                <td><%= list[i].tel %></td>
+                <td><%= list[i].birth %></td>
+                <td>
+                    <% if (list[i].class == "CST") { %>
+                        <%= list[i].class %>(고객)
+                    <% } else if (list[i].class == "MNG") { %>
+                        <%= list[i].class %>(관리자)
+                    <% } else if (list[i].class == "CEO") { %>
+                        <%= list[i].class %>(경영자)
+                    <% } else { %>
+                        <%= list[i].class %>
+                    <% } %>
+                </td>
+                <td><a href="/person/update/<%= list[i].loginid %>" style="text-decoration: none;">수정</a></td>
+                <td><a href="/person/delete/<%= list[i].loginid %>" style="text-decoration: none;" onclick="if(confirm('정말로 삭제하시겠습니까?')==false) return false">삭제</a></td>
+            </tr>
+        <% i++; } 
+    } %>
+</table>
+
+<% if (list.length === 0) { %>
+<p>자료가 없으니 코드 추가 버튼으로 코드를 추가해 주십시오.</p>
+<% } %>
+
+
+<a href="/person/create">
+    <button class="btn btn-outline-secondary btn-sm" type="submit">고객 추가</button>
+</a>

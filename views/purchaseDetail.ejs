@@ -1,0 +1,30 @@
+<form  method="POST" >
+  <table class="table table-bordered">
+    <tr>
+      <td rowspan="6">
+        <img src="/images/<%= list[0].image %>" style="width:200px;height:200px;">
+      </td>
+      <td><%= list[0].name %></td>
+    </tr>
+    <tr><td>가격 : <%= list[0].price.toLocaleString('ko-KR') %> 원</td></tr>
+    <tr><td>브랜드 : <%= list[0].brand %></td></tr>
+    <tr>
+      <td>수량 : <input class="form-control" type="text" name="qty" style="width:300px;" /></td>
+    </tr>
+
+    
+        <input type="hidden" name="prod_id" value="<%= list[0].prod_id %>">
+        
+        <input type="hidden" name="price" value="<%= list[0].price %>">
+      
+
+    <% if (p === 'Y') { %>
+    <tr>
+      <td colspan="2">
+        <button class="btn btn-outline-primary btn-sm" type="submit" formaction="/purchase/cart_process">결제</button>
+        <button class="btn btn-outline-primary btn-sm" type="submit" formaction="/purchase/j_process">장바구니</button>
+      </td>
+    </tr>
+    <% } %>
+  </table>
+</form>

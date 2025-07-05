@@ -1,0 +1,32 @@
+<h1><%= boardtypes.find(b => b.type_id == id).title %></h1>
+
+<table class="table table-bordered border-primary">
+    <tr><td>작성자</td><td>제목</td><td>날짜</td></tr> 
+    <% for (var i = 0; i < lists.length; i++) { %>
+    <tr>
+        <td><%=lists[i].name%></td>
+        <td><a href="/board/detail/<%= lists[i].board_id %>/<%= board.pNum %>"><%= lists[i].title %></a></td>
+        <td><%=lists[i].date%></td>
+        <input type="hidden" name="p_id" value="<%= board.board_id %>">
+        
+    </tr>
+    <% } %>
+</table>   
+
+<% if (lists.length === 0) { %>
+<p>글쓰기 버튼으로 글을 작성하세요.</p>
+<% } %>
+<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+   <a href="/board/create/<%=board.type_id%>"> <button type="button" class="btn btn-info me-md-2">글쓰기</button> </a>
+</div>
+
+<% var j = 1;
+while (j <= total) { 
+if(j == board.pNum){ %>
+<span style="font-weight : bold;"><%=j%></span> &nbsp;&nbsp;
+<% } else { %>
+<span><a href="/board/view/<%=board.type_id%>/<%=j%>"><%=j%></a></span> &nbsp;&nbsp;
+<% } 
+j++ 
+} %>
+

@@ -1,0 +1,46 @@
+<h2>cart 테이블 수정</h2>
+<div class="container">	
+  <form action="/cartupdate_process" method="post">
+
+    <!-- 고객 선택 -->
+    <div class="mb-3">
+      <label class="form-label" for="customer">고객</label>
+      <select name="customer" id="customer" class="form-select" style="width:300px;">
+        <% list.forEach(person => { %>
+          <option value="<%= person.loginid %>" 
+            <%= (board.length > 0 && person.loginid === board[0].loginid) ? 'selected' : '' %>>
+            <%= person.name %>
+          </option>
+        <% }) %>
+      </select>
+    </div>
+
+    <!-- 상품 선택 -->
+    <div class="mb-3">
+      <label class="form-label" for="product">상품</label>
+      <select name="product" id="product" class="form-select" style="width:300px;">
+        <% lists.forEach(product => { %>
+          <option value="<%= product.prod_id %>" 
+            <%= (board.length > 0 && product.prod_id === board[0].prod_id) ? 'selected' : '' %>>
+            <%= product.name %>
+          </option>
+        <% }) %>
+      </select>
+    </div>
+
+    <!-- 날짜 (읽기 전용 텍스트 입력) -->
+    <div class="mb-3">
+      <label class="form-label" for="date">날짜</label> 
+      <input class="form-control" type="text" name="date" id="date" 
+        value="<%= board.length > 0 ? board[0].date : '' %>" 
+        style="width:300px;" disabled/>
+    </div>
+
+    <!-- cart_id hidden으로 넘김 -->
+    <input type="hidden" name="cart_id" value="<%= board.length > 0 ? board[0].cart_id : '' %>">
+
+    <!-- 버튼 -->
+    <button class="btn btn-outline-primary btn-sm" type="submit">수정</button>
+    <a href="/cartview" class="btn btn-outline-secondary btn-sm">카트 목록 돌아가기</a>
+  </form>
+</div>
